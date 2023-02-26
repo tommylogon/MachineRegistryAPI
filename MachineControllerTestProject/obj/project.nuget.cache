@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "XQtxl0sUh7KEmtaTOSFxNMjiv6wQeQFAQ5S6bHdyKgFxwooaGfsGPyfvQ97l4y6FrUAcY+sKHYHdKusj1b8E4A==",
+  "success": true,
+  "projectFilePath": "F:\\Repo\\MachineRegistryAPI\\MachineControllerTestProject\\MachineControllerTestProject.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Tommy\\.nuget\\packages\\nunit3testadapter\\4.4.0\\nunit3testadapter.4.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}

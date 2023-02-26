@@ -1,0 +1,113 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.8": {
+      "NUnit3TestAdapter/4.4.0": {
+        "type": "package",
+        "build": {
+          "build/net462/NUnit3TestAdapter.props": {}
+        }
+      },
+      "MachineRegistry/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/MachineRegistry.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MachineRegistry.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "NUnit3TestAdapter/4.4.0": {
+      "sha512": "FyFxtcEDWMh4oDXg0XRZWjDtT41G14afbloZd67B7xn2dRl8ExNMipuAwKxYSr+TfPyLgz/bilQLx4eB8drcfw==",
+      "type": "package",
+      "path": "nunit3testadapter/4.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/net462/NUnit3.TestAdapter.dll",
+        "build/net462/NUnit3.TestAdapter.pdb",
+        "build/net462/NUnit3TestAdapter.props",
+        "build/net462/nunit.engine.api.dll",
+        "build/net462/nunit.engine.core.dll",
+        "build/net462/nunit.engine.dll",
+        "build/net462/testcentric.engine.metadata.dll",
+        "build/netcoreapp3.1/Microsoft.Extensions.DependencyModel.dll",
+        "build/netcoreapp3.1/NUnit3.TestAdapter.dll",
+        "build/netcoreapp3.1/NUnit3.TestAdapter.pdb",
+        "build/netcoreapp3.1/NUnit3TestAdapter.props",
+        "build/netcoreapp3.1/nunit.engine.api.dll",
+        "build/netcoreapp3.1/nunit.engine.core.dll",
+        "build/netcoreapp3.1/nunit.engine.dll",
+        "build/netcoreapp3.1/testcentric.engine.metadata.dll",
+        "nunit3testadapter.4.4.0.nupkg.sha512",
+        "nunit3testadapter.nuspec"
+      ]
+    },
+    "MachineRegistry/1.0.0": {
+      "type": "project",
+      "path": "../MachineRegistry/MachineRegistry.csproj",
+      "msbuildProject": "../MachineRegistry/MachineRegistry.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.8": [
+      "MachineRegistry >= 1.0.0",
+      "NUnit3TestAdapter >= 4.4.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Tommy\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "F:\\Repo\\MachineRegistryAPI\\MachineControllerTestProject\\MachineControllerTestProject.csproj",
+      "projectName": "MachineControllerTestProject",
+      "projectPath": "F:\\Repo\\MachineRegistryAPI\\MachineControllerTestProject\\MachineControllerTestProject.csproj",
+      "packagesPath": "C:\\Users\\Tommy\\.nuget\\packages\\",
+      "outputPath": "F:\\Repo\\MachineRegistryAPI\\MachineControllerTestProject\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Tommy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net48"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "projectReferences": {
+            "F:\\Repo\\MachineRegistryAPI\\MachineRegistry\\MachineRegistry.csproj": {
+              "projectPath": "F:\\Repo\\MachineRegistryAPI\\MachineRegistry\\MachineRegistry.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net48": {
+        "targetAlias": "net48",
+        "dependencies": {
+          "NUnit3TestAdapter": {
+            "target": "Package",
+            "version": "[4.4.0, )"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

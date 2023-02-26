@@ -10,12 +10,12 @@ namespace MachineRegistry.Controllers
 {
     public class MachineController : ApiController
     {
-        static List<Machine> machines = new List<Machine>
-        {
-            new Machine {Id = 0, Name = "Default"},
-            new Machine {Id = 1, Name = "Gravemaskin"},
-            new Machine {Id = 2, Name = "Brannbil"}
-        };
+        static List<Machine> machines = new List<Machine>();
+        //{
+        //    new Machine {Id = 0, Name = "Default"},
+        //    new Machine {Id = 1, Name = "Gravemaskin"},
+        //    new Machine {Id = 2, Name = "Brannbil"}
+        //};
 
         public IEnumerable<Machine> GetAllMachines()
         {
@@ -56,7 +56,7 @@ namespace MachineRegistry.Controllers
         //{
 
         //}
-        public IHttpActionResult Put(int id, Machine machine)
+        public IHttpActionResult PutMachine(int id, Machine machine)
         {
             if (id < 0)
             {
@@ -78,7 +78,7 @@ namespace MachineRegistry.Controllers
             return Ok(existingMachine);
         }
 
-        public IHttpActionResult Delete(int id)
+        public IHttpActionResult DeleteMachine(int id)
         {
             if(id < 0)
             {
