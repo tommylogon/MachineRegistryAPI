@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Machine registry</title>
+</head>
+<body>
+    <div>
+        <h2>All machines</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody id="machines">
+            </tbody>
+            
+        </table>
+    </div>
+
+  <div>
+    <h2>Search by ID</h2>
+    <input type="text" id="machineId" size="5" />
+    <input type="button" value="Search" onclick="find();" />
+    <p id="machine" />
+  </div>
+
+    <div>
+    <h2>Add Machine</h2>
+    <input type="text" id="newMachineName" />
+    <button onclick="addMachine()">Add Machine</button>
+    </div>
+
+     <div>
+    <h2>Remove Machine</h2>
+    <input type="text" id="DeletingID" />
+    <button onclick="removeMachine()">Remove Machine by ID</button>
+    </div>
+
+
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+    var uri = 'api/machine';
+
+        $(document).ready(function () {
+            loadMachines();
+        });
+
+       
+
+    function formatItem(item) {
+      return item.Id + ': ' + item.Name;
+    }
+
+    function find() {
+        var id = $('#machineId').val();
+      $.getJSON(uri + '/' + id)
+          .done(function (data) {
+            $('#machine').text(formatItem(data));
+          })
+          .fail(function (jqXHR, textStatus, err) {
+              $('#machine').text('Error: ' + err);
+          });
+        }
+
+        function addMachine() {
+            var name = $('#newMachineName').val();
+            var machine = { Name: name };
+
+            $.ajax({
+                url: uri,
+                type: 'POST',
+                data: JSON.stringify(machine),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+            })
+                .done(function (data) {
+                    //alert('Machine added!');
+                    loadMachines();
+                })
+                .fail(function (xhr, textStatus, error) {
+                    var message = xhr.status + ': ' + xhr.statusText;
+                    alert('Error - ' + message);
+                });
+        }
+
+        function removeMachine(id) {
+            
+
+            $.ajax({
+                url: uri + '/' + id,
+                type: 'DELETE',
+                success: function (result) {
+                    loadMachines();
+                },
+                error: function (xhr, textstatus, errorThrown) {
+                    var errorMessage = 'Error removing machine: ' + textstatus + ' - ' + errorThrown;
+                    alert(errorMessage);
+                }
+            })
+        }
+
+        function UpdateMachine(id, name) {
+            console.log("Updating machine:", { Id: id, Name: name });
+
+            $.ajax({
+                url: uri + '/' + id,
+                type: 'PUT',
+                data: JSON.stringify({id: id, name: name }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    loadMachines();
+                },
+                error: function (xhr, textstatus, errorThrown) {
+                    var errorMessage = 'Error updating machine: ' + textstatus + ' - ' + errorThrown;
+                    alert(errorMessage);
+                }
+            })
+        }
+
+        function loadMachines() {
+            $.getJSON(uri)
+                .done(function (data) {
+                    $('#machines').empty();
+                    $.each(data, function (key, item) {
+                        var $nameInput = $('<input>').attr('type', 'text').val(item.Name);
+                        var $row = $('<tr>')
+                            .append($('<td>').text(item.Id))
+                            .append($('<td>').append($nameInput))
+                            .append($('<td>').append($('<button>').text('Save').click(function () {
+                                UpdateMachine(item.Id, $nameInput.val())
+                            })))
+                            .append($('<td>').append($('<button>').text('Remove').click(function () {
+                                removeMachine(item.Id)()
+                            })));
+                        $row.appendTo($('#machines'));
+
+                    });
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    console.log('Error: ' + textStatus + ': ' + errorThrown);
+                });
+        }
+       
+
+    </script>
+</body>
+</html>
