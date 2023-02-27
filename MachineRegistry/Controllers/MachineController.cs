@@ -68,6 +68,11 @@ namespace MachineRegistry.Controllers
                 return BadRequest("Machine cannot be null");
             }
 
+            if(machine.Name == "")
+            {
+                return BadRequest("Machine name cannot be emtpy");
+            }
+
             var existingMachine = machines.FirstOrDefault(m => m.Id == id);
 
             if(existingMachine == null)
