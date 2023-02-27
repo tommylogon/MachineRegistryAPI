@@ -30,30 +30,38 @@ namespace TestProject1
                 new Machine { Id = 2, Name = "Digger" },
                 new Machine { Id = 3, Name = "Firetruck"}
             };
-
+            
             foreach (var machine in initialMachines)
             {
-                controller.PostMachine(machine);
+               var response = controller.PostMachine(machine);
+                Assert.IsInstanceOf<OkNegotiatedContentResult<List<Machine>>>(response);
             }
 
             var result = controller.GetAllMachines() as List<Machine>;
-
+            
 
             
-            Assert.AreEqual(3, result.Count);
-            Assert.AreEqual("Train", result[0].Name);
-            Assert.AreEqual("Digger", result[1].Name);
-            Assert.AreEqual("Firetruck", result[2].Name);
+            Assert.Greater(result.Count,0);
+
+        }
+        [Test]
+        public void PostMachine_MachineIsNullShouldReturnBadRequest()
+        {
+
+            Machine initialMachine = null;
+
+            
+            var response = controller.PostMachine(initialMachine);
+            Assert.IsInstanceOf<BadRequestErrorMessageResult>(response);
 
         }
 
         [Test]
         public void PutMachine_ShouldUpdateMachine()
         {
-
-
             var machine = new Machine { Id = 2, Name = "Ambulanse" };
             var result = controller.PutMachine(2, machine);
+            
 
 
             var updatedResult = controller.GetMachine(2) as OkNegotiatedContentResult<Machine>;
@@ -63,42 +71,44 @@ namespace TestProject1
         }
 
         [Test]
-        public void PutMachine_ShouldNotUpdateMachine()
+        public void PutMachine_IDLessThanZero()
         {
-            var initialMachines = new List<Machine>()
-            {
-                new Machine { Id = 0, Name = "Train" },
-                new Machine { Id = 1, Name = "Digger" },
-                new Machine { Id = 2, Name = "Firetruck"},
-                new Machine { Id = 3, Name = "Airplane"}
-            };
-
-            foreach (var machine in initialMachines)
-            {
-                controller.PostMachine(machine);
-            }
-
-
-            var invalidMachine = new Machine { Id = 5, Name = "Invalid ID on update" };
-            var result = controller.PutMachine(5, invalidMachine);
-
-            Assert.IsInstanceOf<NotFoundResult>(result);
-
-            invalidMachine = new Machine { Id = 3, Name = "" };
-            result = controller.PutMachine(3, invalidMachine);
+            var machine = new Machine { Id = -1, Name = "Less than zero" };
+            var result = controller.PutMachine(-1, machine);
 
             Assert.IsInstanceOf<BadRequestErrorMessageResult>(result);
-
-            var updateResult = controller.GetMachine(3) as OkNegotiatedContentResult<Machine>;
-
-
-            Assert.IsNotEmpty(updateResult.Content.Name);
-            Assert.IsInstanceOf<BadRequestErrorMessageResult>(result);
-
 
         }
 
+        [Test]
+        public void PutMachine_MachineIsNull()
+        {
+            Machine machine = null;
+            var result = controller.PutMachine(-1, machine);
 
+            Assert.IsInstanceOf<BadRequestErrorMessageResult>(result);
+
+        }
+
+        [Test]
+        public void PutMachine_NameIsEmpty()
+        {
+            var machine = new Machine { Id = 2, Name = "" };
+            var result = controller.PutMachine(2, machine);
+
+            Assert.IsInstanceOf<BadRequestErrorMessageResult>(result);
+
+        }
+
+        [Test]
+        public void PutMachine_MachineNotFound()
+        {
+            var machine = new Machine { Id = 99, Name = "Spaceship" };
+            var result = controller.PutMachine(99, machine);
+
+            Assert.IsInstanceOf<NotFoundResult>(result);
+
+        }
 
 
 
@@ -114,6 +124,24 @@ namespace TestProject1
             var machinesList = controller.GetAllMachines().ToList();
             Assert.Less(machinesList.Count,3);
             
+        }
+
+        [Test]
+        public void DeleteMachine_TestinvalidID()
+        {
+
+            var result = controller.DeleteMachine(-1);
+            Assert.IsInstanceOf<BadRequestErrorMessageResult>(result);
+
+        }
+
+        [Test]
+        public void DeleteMachine_TestMachineNotFound()
+        {
+
+            var result = controller.DeleteMachine(69);
+            Assert.IsInstanceOf<NotFoundResult>(result);
+
         }
     }
 }

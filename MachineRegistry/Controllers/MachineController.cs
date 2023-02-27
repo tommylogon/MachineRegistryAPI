@@ -46,16 +46,11 @@ namespace MachineRegistry.Controllers
                 machine.Id = machines.Last().Id + 1;
             }
             
-            machines.Add(machine);
-
-            return CreatedAtRoute("DefaultApi", new { id = machine.Id }, machine);
-            //return Ok(machines);
+            machines.Add(machine);           
+            return Ok(machines);
         }
 
-        //public void Post([FromBody] string value)
-        //{
-
-        //}
+        
         public IHttpActionResult PutMachine(int id, Machine machine)
         {
             if (id < 0)
